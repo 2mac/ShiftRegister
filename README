@@ -1,0 +1,71 @@
+Arduino Shift Register Library
+==============================
+
+All the things you need to simply control a shift register from your
+Arduino-compatible microcontroller.
+
+Installation
+------------
+
+Simply move the folder containing this README file (which should have the rest
+of the program files with it) to the `libraries` folder in your sketchbook
+location. If you don't know where this folder is, open your Arduino IDE, and
+look for the sketchbook location under File > Preferences.
+
+Usage
+-----
+
+This library provides a class for dealing with each shift register called
+`ShiftRegister`. You can test it with an Arduino sketch like so:
+
+``` c++
+#include <ShiftRegister.h>
+
+ShiftRegister sr(2, 3, 4, 5, 6);
+
+void setup() {
+  Serial.begin(9600);
+
+  sr.pushByte(42);
+  sr.show();
+  Serial.println("You should see 00101010 on the outputs.");
+  delay(5000);
+
+  uint8_t read = sr.readByte(true); // true to keep values unchanged
+  sr.show();
+  Serial.println("The outputs should be unchanged.");
+  delay(5000);
+
+  Serial.print("Should be 42: ");
+  Serial.println(read);
+
+  sr.clear();
+  read = sr.readByte(true);
+  Serial.print("Should be 0: ");
+  Serial.println(read);
+
+  sr.show();
+  Serial.println("The outputs should all be LOW.");
+  delay(5000);
+}
+
+void loop() {
+}
+```
+
+This test program assumes your controller has serial output and that your shift
+register has only 8 bits.
+
+Hacking
+-------
+
+This library uses the GNU coding style for C++ with the exception of using
+Arduino-style naming conventions for variables and functions so that the final
+sketch will look consistent with the Arduino standard library.
+
+License
+-------
+
+This library is libre software: you are free to use, copy, modify, and
+redistribute it under the terms of the GNU Affero General Public License,
+version 3 only. See [COPYING](COPYING) for details.
