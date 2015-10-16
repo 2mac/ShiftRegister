@@ -30,8 +30,9 @@ public:
    * @param rclk Arduino pin connected to RCLK on the register.
    * @param srclr Arduino pin connected to SRCLR on the register.
    * @param qhprime Arduino pin connected to the QH` pin of the last register.
+   * @param oe Arduino pin connected to the OE pin of the register.
    */
-  ShiftRegister(int ser, int srclk, int rclk, int srclr, int qhprime);
+  ShiftRegister(int ser, int srclk, int rclk, int srclr, int qhprime, int oe);
 
   /**
    * Shifts a bit onto the register.
@@ -75,8 +76,15 @@ public:
   uint8_t
   readByte(boolean pushBack);
 
+  /**
+   * Sets the state of the register's output.
+   * @param state true to allow output.
+   */
+  void
+  setOutputEnabled(boolean state);
+
 private:
-  const int data, clk, latch, clr, out;
+  const int data, clk, latch, clr, out, oe;
 };
 
 #endif

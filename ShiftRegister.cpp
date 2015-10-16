@@ -19,16 +19,19 @@
 
 #define SR_DELAY (5)
 
-ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh)
-  : data(ser), clk(srclk), latch(rclk), clr(srclr), out(qh)
+ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh,
+			     int oe)
+  : data(ser), clk(srclk), latch(rclk), clr(srclr), out(qh), oe(oe)
 {
   pinMode(this->data, OUTPUT);
   pinMode(this->clk, OUTPUT);
   pinMode(this->latch, OUTPUT);
   pinMode(this->clr, OUTPUT);
   pinMode(this->out, INPUT);
+  pinMode(this->oe, OUTPUT);
 
   digitalWrite(this->clr, HIGH);
+  digitalWrite(this->oe, HIGH);
 }
 
 void
@@ -88,4 +91,10 @@ ShiftRegister::readByte(boolean pushBack)
     }
 
   return byte;
+}
+
+void
+ShiftRegister::setOutputEnabled(boolean state)
+{
+  digitalWrite(this->oe, !state);
 }
