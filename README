@@ -64,6 +64,10 @@ void loop() {
 This test program assumes your controller has serial output and that your shift
 register has only 8 bits.
 
+Example circuit:
+
+![Example ShiftRegister usage circuit](ShiftRegisterBreadBoard.png)
+
 Hacking
 -------
 
