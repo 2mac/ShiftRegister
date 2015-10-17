@@ -32,7 +32,8 @@ public:
    * @param qhprime Arduino pin connected to the QH` pin of the last register.
    * @param oe Arduino pin connected to the OE pin of the register.
    */
-  ShiftRegister(int ser, int srclk, int rclk, int srclr, int qhprime, int oe);
+  ShiftRegister(int ser=-1, int srclk=-1, int rclk=-1, int srclr=-1,
+		int qhprime=-1, int oe=-1);
 
   /**
    * Shifts a bit onto the register.
@@ -74,7 +75,7 @@ public:
    * @return The byte read, with the first bit in the highest value position.
    */
   uint8_t
-  readByte(boolean pushBack);
+  readByte(boolean pushBack=false);
 
   /**
    * Sets the state of the register's output.
@@ -85,6 +86,12 @@ public:
 
 private:
   const int data, clk, latch, clr, out, oe;
+
+  void
+  initPin(int pin, int mode);
+
+  void
+  setPin(int pin, boolean state);
 };
 
 #endif

@@ -21,7 +21,7 @@ This library provides a class for dealing with each shift register called
 ``` c++
 #include <ShiftRegister.h>
 
-ShiftRegister sr(2, 3, 4, 5, 6);
+ShiftRegister sr(2, 3, 4, 5, 6, 7);
 
 void setup() {
   Serial.begin(9600);
@@ -38,6 +38,14 @@ void setup() {
 
   Serial.print("Should be 42: ");
   Serial.println(read);
+
+  Serial.println("Outputs will flash...");
+  for (byte i = 0; i < 5; ++i) {
+    delay(500);
+    sr.setOutputEnabled(false);
+    delay(500);
+    sr.setOutputEnabled(true);
+  }
 
   sr.clear();
   read = sr.readByte(true);

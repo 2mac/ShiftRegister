@@ -23,40 +23,40 @@ ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh,
 			     int oe)
   : data(ser), clk(srclk), latch(rclk), clr(srclr), out(qh), oe(oe)
 {
-  pinMode(this->data, OUTPUT);
-  pinMode(this->clk, OUTPUT);
-  pinMode(this->latch, OUTPUT);
-  pinMode(this->clr, OUTPUT);
-  pinMode(this->out, INPUT);
-  pinMode(this->oe, OUTPUT);
+  this->initPin(this->data, OUTPUT);
+  this->initPin(this->clk, OUTPUT);
+  this->initPin(this->latch, OUTPUT);
+  this->initPin(this->clr, OUTPUT);
+  this->initPin(this->out, INPUT);
+  this->initPin(this->oe, OUTPUT);
 
-  digitalWrite(this->clr, HIGH);
-  digitalWrite(this->oe, HIGH);
+  this->setPin(this->clr, HIGH);
+  this->setPin(this->oe, HIGH);
 }
 
 void
 ShiftRegister::pushBit(boolean state)
 {
-  digitalWrite(this->data, state);
-  digitalWrite(this->clk, HIGH);
+  this->setPin(this->data, state);
+  this->setPin(this->clk, HIGH);
   delayMicroseconds(SR_DELAY);
-  digitalWrite(this->clk, LOW);
+  this->setPin(this->clk, LOW);
 }
 
 void
 ShiftRegister::clear()
 {
-  digitalWrite(this->clr, LOW);
+  this->setPin(this->clr, LOW);
   delayMicroseconds(SR_DELAY);
-  digitalWrite(this->clr, HIGH);
+  this->setPin(this->clr, HIGH);
 }
 
 void
 ShiftRegister::show()
 {
-  digitalWrite(this->latch, HIGH);
+  this->setPin(this->latch, HIGH);
   delayMicroseconds(SR_DELAY);
-  digitalWrite(this->latch, LOW);
+  this->setPin(this->latch, LOW);
 }
 
 void
@@ -69,7 +69,10 @@ ShiftRegister::pushByte(uint8_t byte)
 boolean
 ShiftRegister::readBit()
 {
-  return digitalRead(this->out);
+  if (this->out >= 0)
+    return digitalRead(this->out);
+
+  return -1;
 }
 
 uint8_t
@@ -96,5 +99,19 @@ ShiftRegister::readByte(boolean pushBack)
 void
 ShiftRegister::setOutputEnabled(boolean state)
 {
-  digitalWrite(this->oe, !state);
+  this->setPin(this->oe, !state);
+}
+
+void
+ShiftRegister::initPin(int pin, int mode)
+{
+  if (pin >= 0)
+    pinMode(pin, mode);
+}
+
+void
+ShiftRegister::setPin(int pin, boolean state)
+{
+  if (pin >= 0)
+    digitalWrite(pin, state);
 }
