@@ -17,7 +17,7 @@
 
 #include "ShiftRegister.h"
 
-#define SR_DELAY (5)
+#define SR_DELAY (5) /* documented microsecond delay for popular registers */
 
 ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh,
 			     int oe)
