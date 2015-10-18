@@ -40,19 +40,19 @@ public:
    * @param state Value of the bit to be pushed.
    */
   void
-  pushBit(boolean state);
+  pushBit(boolean state) const;
 
   /**
    * Clears all data stored on the register.
    */
   void
-  clear();
+  clear() const;
 
   /**
    * Writes the stored data to the register's output pins.
    */
   void
-  show();
+  show() const;
 
   /**
    * Shifts a byte onto the register.
@@ -60,14 +60,14 @@ public:
    * position.
    */
   void
-  pushByte(uint8_t byte);
+  pushByte(uint8_t byte) const;
 
   /**
    * Reads the last bit from the register.
    * @return true if the last bit is HIGH.
    */
   boolean
-  readBit();
+  readBit() const;
 
   /**
    * Reads a byte from the register.
@@ -75,23 +75,23 @@ public:
    * @return The byte read, with the first bit in the highest value position.
    */
   uint8_t
-  readByte(boolean pushBack=false);
+  readByte(boolean pushBack=false) const;
 
   /**
    * Sets the state of the register's output.
    * @param state true to allow output.
    */
   void
-  setOutputEnabled(boolean state);
+  setOutputEnabled(boolean state) const;
 
 private:
   const int data, clk, latch, clr, out, oe;
 
   void
-  initPin(int pin, int mode);
+  initPin(int pin, int mode) const;
 
   void
-  setPin(int pin, boolean state);
+  setPin(int pin, boolean state) const;
 };
 
 #endif

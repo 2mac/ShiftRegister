@@ -35,7 +35,7 @@ ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh,
 }
 
 void
-ShiftRegister::pushBit(boolean state)
+ShiftRegister::pushBit(boolean state) const
 {
   this->setPin(this->data, state);
   this->setPin(this->clk, HIGH);
@@ -44,7 +44,7 @@ ShiftRegister::pushBit(boolean state)
 }
 
 void
-ShiftRegister::clear()
+ShiftRegister::clear() const
 {
   this->setPin(this->clr, LOW);
   delayMicroseconds(SR_DELAY);
@@ -52,7 +52,7 @@ ShiftRegister::clear()
 }
 
 void
-ShiftRegister::show()
+ShiftRegister::show() const
 {
   this->setPin(this->latch, HIGH);
   delayMicroseconds(SR_DELAY);
@@ -60,14 +60,14 @@ ShiftRegister::show()
 }
 
 void
-ShiftRegister::pushByte(uint8_t byte)
+ShiftRegister::pushByte(uint8_t byte) const
 {
   for (uint8_t bit = 128; bit >= 1; bit /= 2)
     this->pushBit(byte & bit);
 }
 
 boolean
-ShiftRegister::readBit()
+ShiftRegister::readBit() const
 {
   if (this->out >= 0)
     return digitalRead(this->out);
@@ -76,7 +76,7 @@ ShiftRegister::readBit()
 }
 
 uint8_t
-ShiftRegister::readByte(boolean pushBack)
+ShiftRegister::readByte(boolean pushBack) const
 {
   uint8_t byte = 0;
 
@@ -97,20 +97,20 @@ ShiftRegister::readByte(boolean pushBack)
 }
 
 void
-ShiftRegister::setOutputEnabled(boolean state)
+ShiftRegister::setOutputEnabled(boolean state) const
 {
   this->setPin(this->oe, !state);
 }
 
 void
-ShiftRegister::initPin(int pin, int mode)
+ShiftRegister::initPin(int pin, int mode) const
 {
   if (pin >= 0)
     pinMode(pin, mode);
 }
 
 void
-ShiftRegister::setPin(int pin, boolean state)
+ShiftRegister::setPin(int pin, boolean state) const
 {
   if (pin >= 0)
     digitalWrite(pin, state);
