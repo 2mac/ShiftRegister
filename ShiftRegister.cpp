@@ -31,7 +31,7 @@ ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh,
   this->initPin(this->oe, OUTPUT);
 
   this->setPin(this->clr, HIGH);
-  this->setPin(this->oe, HIGH);
+  this->setPin(this->oe, LOW);
 }
 
 void
