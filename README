@@ -41,10 +41,10 @@ void setup() {
 
   Serial.println("Outputs will flash...");
   for (byte i = 0; i < 5; ++i) {
-    delay(500);
     sr.setOutputEnabled(false);
     delay(500);
     sr.setOutputEnabled(true);
+    delay(500);
   }
 
   sr.clear();
