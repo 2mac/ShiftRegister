@@ -1,6 +1,6 @@
 /*
  *  ShiftRegister - A shift register library for Arduino
- *  Copyright (C) 2015 David McMackins II
+ *  Copyright (C) 2015-2016 David McMackins II
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,9 @@ ShiftRegister::ShiftRegister(int ser, int srclk, int rclk, int srclr, int qh,
 
   this->setPin(this->clr, HIGH);
   this->setPin(this->oe, LOW);
+
+  this->clear();
+  this->show();
 }
 
 void
