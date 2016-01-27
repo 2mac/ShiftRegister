@@ -22,8 +22,10 @@ This library provides a class for dealing with each shift register called
 #include <ShiftRegister.h>
 
 ShiftRegister sr(2, 3, 4, 5, 6, 7);
+StateBasedRegister<1> sbr(sr);
 
 void setup() {
+  sr.clear();
   Serial.begin(9600);
 
   sr.pushByte(42);
@@ -41,10 +43,10 @@ void setup() {
 
   Serial.println("Outputs will flash...");
   for (byte i = 0; i < 5; ++i) {
+    delay(500);
     sr.setOutputEnabled(false);
     delay(500);
     sr.setOutputEnabled(true);
-    delay(500);
   }
 
   sr.clear();
@@ -52,8 +54,12 @@ void setup() {
   Serial.print("Should be 0: ");
   Serial.println(read);
 
-  sr.show();
+  sbr.clear();
   Serial.println("The outputs should all be LOW.");
+  delay(5000);
+
+  sbr.write(3, true);
+  Serial.println("You should see 00100000 on the outputs.");
   delay(5000);
 }
 
